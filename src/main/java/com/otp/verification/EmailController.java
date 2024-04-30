@@ -1,7 +1,6 @@
 package com.otp.verification;
 
 import java.util.Random;
-import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,13 +54,16 @@ public class EmailController {
 		Email verify = emailService.verifyOTPById(id);
 		int OTP =  verify.getOtp();
 		
+		if(OTP > 0) {
+		
 		if(OTP == verificationRequest.getUserOTP()) {
 			
 			System.out.print("OTP Verification Successful !!");
 		
+			emailService.updateOTPById(id);
 			
 			return "OTP Verification Successful✅";
-			
+	
 		}
 		
 		
@@ -72,12 +74,10 @@ public class EmailController {
 		return "OTP Verification Failed❌!";
 	}	
 	
-		
-		
+		}else {
+			
+			return "OTP is Invalid!";
+		}
 	}
 	
-	
-	
-	
-
 }

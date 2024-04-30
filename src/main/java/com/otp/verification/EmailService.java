@@ -9,5 +9,7 @@ public interface EmailService {
 	
 	public Email verifyOTPById(Long id);
 	
+	public Email updateOTPById(Long id);
+	
 	
 }

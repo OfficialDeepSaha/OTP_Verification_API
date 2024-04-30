@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 public class Email {
 	
 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -50,9 +51,11 @@ public class Email {
 	}
 
 
+
 	public void setOtp(int otp) {
 		this.otp = otp;
 	}
+
 
 
 	public String getEmail() {

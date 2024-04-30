@@ -1,7 +1,5 @@
 package com.otp.verification;
 
-import java.awt.Color;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -11,7 +9,7 @@ import jakarta.mail.internet.MimeMessage;
 
 @Service
 public class EmailServiceImpl implements EmailService {
-	
+
 	@Autowired
 	private EmailRepository emailRepo;
 
@@ -20,8 +18,6 @@ public class EmailServiceImpl implements EmailService {
 
 	@Override
 	public void sendOTP(String to, int otp) throws Exception {
-		
-		
 
 		// For Sending Mail
 		MimeMessage message = javaMailSender.createMimeMessage();
@@ -30,20 +26,24 @@ public class EmailServiceImpl implements EmailService {
 		helper.setFrom("Hr.SCS.in", "Hr-Deep@SCS.in");
 		helper.setSubject("One Time Password->");
 		helper.setText("Your OTP is- " + otp);
-		
 
 		javaMailSender.send(message);
 		;
 	}
-	
-	
+
 	public Email verifyOTPById(Long id) {
-		
+
 		return emailRepo.findById(id).get();
 	}
-	
-	
-	
-	
+
+	@Override
+	public Email updateOTPById(Long id) {
+
+		Email updatedOTP = emailRepo.findById(id).get();
+		updatedOTP.setOtp(0);
+
+		return emailRepo.save(updatedOTP);
+
+	}
 
 }
